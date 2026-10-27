@@ -38,12 +38,14 @@ export default function DiabetesPage() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const API_URL = import.meta.env.VITE_API_URL
+  
   const predictDiabetes = async () => {
     console.log(formData);
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.post("http://127.0.0.1:8000/predict/diabetes", formData);
+      const response = await axios.post(`${API_URL}/predict/diabetes`, formData);
       setResult(response.data);
     } catch (err) {
       setError(err.response?.data?.detail || "Prediction failed. Please try again.");

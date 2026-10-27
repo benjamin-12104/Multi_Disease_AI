@@ -41,11 +41,13 @@ export default function HeartPage() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const predictHeart = async () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.post("http://127.0.0.1:8000/predict/heart", formData);
+      const response = await axios.post(`${API_URL}/predict/heart`, formData);
       setResult(response.data);
     } catch (err) {
       setError(err.response?.data?.detail || "Prediction failed. Please try again.");
